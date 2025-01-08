@@ -1,4 +1,4 @@
-﻿package com.example.webprogrammingspring.product;
+package com.example.webprogrammingspring.product;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
