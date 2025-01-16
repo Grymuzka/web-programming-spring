@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel Administracyjny</title>
+</head>
+<body>
+<h1>Panel Administracyjny</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Klient</th>
+        <th>Bukiet</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <!-- ID zamówienia -->
+        <td th:text="${order.id}"></td>
+
+        <!-- Imię i nazwisko klienta -->
+        <td th:text="${order.customer != null ? order.customer.firstName + ' ' + order.customer.lastName : 'Nie przypisano'}"></td>
+
+        <!-- Rodzaj bukietu -->
+        <td th:text="${order.bouquet != null ? order.bouquet.flowerType : 'Brak danych'}"></td>
+
+        <!-- Status zamówienia -->
+        <td th:text="${order.status}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

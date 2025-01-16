@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Personalizacja bukietu</title>
+</head>
+<body>
+<h1>Personalizuj swój bukiet</h1>
+<form th:action="@{/bouquet/customize}" th:object="${bouquet}" method="post">
+    <!-- Rodzaj kwiatów -->
+    <label for="flowerTypeSelect">Rodzaj kwiatów:</label>
+    <select id="flowerTypeSelect" th:field="*{flowerType}">
+        <option th:each="type : ${flowerTypes}" th:value="${type}" th:text="${type}"></option>
+    </select>
+
+    <!-- Liczba kwiatów -->
+    <label for="flowerCount">Liczba kwiatów:</label>
+    <input type="number" id="flowerCount" th:field="*{flowerCount}" min="1" required />
+
+    <!-- Dodatki -->
+    <label for="accessoryTypeSelect">Dodatki:</label>
+    <select id="accessoryTypeSelect" th:field="*{accessoryType}">
+        <option th:each="type : ${accessoryTypes}" th:value="${type}" th:text="${type}"></option>
+    </select>
+
+    <!-- Przycisk zatwierdzający -->
+    <button type="submit">Zatwierdź</button>
+</form>
+</body>
+</html>

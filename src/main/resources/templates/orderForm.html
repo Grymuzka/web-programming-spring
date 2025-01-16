@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formularz zamówienia</title>
+</head>
+<body>
+<h1>Formularz zamówienia</h1>
+
+<div>
+    <h2>Szczegóły zamówienia</h2>
+    <p><strong>Rodzaj kwiatów:</strong> <span th:text="${order.bouquet.flowerType}"></span></p>
+    <p><strong>Liczba kwiatów:</strong> <span th:text="${order.bouquet.flowerCount}"></span></p>
+    <p><strong>Dodatki:</strong> <span th:text="${order.bouquet.accessoryType}"></span></p>
+    <p><strong>Cena:</strong> <span th:text="${order.bouquet.price}">0.00</span> PLN</p>
+</div>
+
+<!-- Formularz klienta -->
+<form th:action="@{/order/form(orderId=${order.id})}" th:object="${customer}" method="post">
+    <!-- Dane klienta -->
+    <label for="firstName">Imię:</label>
+    <input type="text" id="firstName" th:field="*{firstName}" required />
+
+    <label for="lastName">Nazwisko:</label>
+    <input type="text" id="lastName" th:field="*{lastName}" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" th:field="*{email}" required />
+
+    <label for="phone">Telefon:</label>
+    <input type="text" id="phone" th:field="*{phone}" required />
+
+    <!-- Przycisk zatwierdzający -->
+    <button type="submit">Zatwierdź zamówienie</button>
+</form>
+</body>
+</html>

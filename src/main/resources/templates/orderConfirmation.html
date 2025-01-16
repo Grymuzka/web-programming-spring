@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Potwierdzenie zamówienia</title>
+</head>
+<body>
+<h1>Potwierdzenie zamówienia</h1>
+
+<div>
+    <h2>Dziękujemy za zamówienie!</h2>
+    <p><strong>Numer zamówienia:</strong> <span th:text="${order.id}"></span></p>
+    <p><strong>Status:</strong> <span th:text="${order.status}"></span></p>
+    <h3>Szczegóły bukietu:</h3>
+    <p><strong>Rodzaj kwiatów:</strong> <span th:text="${order.bouquet.flowerType}"></span></p>
+    <p><strong>Liczba kwiatów:</strong> <span th:text="${order.bouquet.flowerCount}"></span></p>
+    <p><strong>Dodatki:</strong> <span th:text="${order.bouquet.accessoryType}"></span></p>
+    <p><strong>Cena:</strong> <span th:text="${order.bouquet.price}"></span> PLN</p>
+</div>
+</body>
+</html>

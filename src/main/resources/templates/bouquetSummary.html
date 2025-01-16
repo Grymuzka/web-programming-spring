@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Podsumowanie zamówienia</title>
+</head>
+<body>
+<h1>Podsumowanie zamówienia nr <span th:text="${orderId}"></span></h1>
+
+<div>
+    <h2>Szczegóły bukietu</h2>
+    <p><strong>Rodzaj kwiatów:</strong> <span th:text="${bouquet.flowerType}"></span></p>
+    <p><strong>Liczba kwiatów:</strong> <span th:text="${bouquet.flowerCount}"></span></p>
+    <p><strong>Dodatki:</strong> <span th:text="${bouquet.accessoryType}"></span></p>
+    <p><strong>Cena:</strong> <span th:text="${bouquet.price}">0.00</span> PLN</p>
+</div>
+<a th:href="@{/order/form(orderId=${order.id})}">Przejdź do formularza zamówienia</a>
+</body>
+</html>
