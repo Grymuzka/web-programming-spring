@@ -2,6 +2,58 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Personalizacja bukietu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('https://images.unsplash.com/photo-1567696153798-9111f9cd3d0d?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #19531d;
+            margin: 20px 0;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label, select, input, button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #19531d;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d6525;
+        }
+
+        .add-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .add-buttons button {
+            width: 48%;
+        }
+    </style>
 </head>
 <body>
 <h1>Personalizuj swój bukiet</h1>
@@ -22,8 +74,26 @@
         <option th:each="type : ${accessoryTypes}" th:value="${type}" th:text="${type}"></option>
     </select>
 
+    <!-- Przyciski -->
+    <div class="add-buttons">
+        <button type="button" onclick="addFlower()">Dodaj rodzaj kwiatów</button>
+        <button type="button" onclick="addAccessory()">Dodaj dodatek</button>
+    </div>
+
     <!-- Przycisk zatwierdzający -->
     <button type="submit">Zatwierdź</button>
 </form>
+
+<script>
+    function addFlower() {
+        alert('Funkcja dodawania kolejnego rodzaju kwiatów jeszcze niezaimplementowana!');
+        // Tutaj możesz dodać logikę dynamicznego dodawania kolejnych pól formularza dla nowych kwiatów.
+    }
+
+    function addAccessory() {
+        alert('Funkcja dodawania nowego dodatku jeszcze niezaimplementowana!');
+        // Tutaj możesz dodać logikę dynamicznego dodawania kolejnych pól formularza dla nowych dodatków.
+    }
+</script>
 </body>
 </html>
