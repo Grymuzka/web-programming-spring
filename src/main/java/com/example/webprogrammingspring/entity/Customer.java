@@ -1,10 +1,14 @@
 package com.example.webprogrammingspring.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,18 +17,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Customer extends AuditEntity {
 
-//    @NotBlank(message = "Imię jest wymagane")
     private String firstName;
 
-//    @NotBlank(message = "Nazwisko jest wymagane")
     private String lastName;
 
-//    @Email(message = "Podaj poprawny adres e-mail")
     private String email;
 
-//    @NotBlank(message = "Numer telefonu jest wymagany")
     private String phone;
-
-//    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<Order> orders = new ArrayList<>();
 }

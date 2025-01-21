@@ -24,5 +24,5 @@ public class Bouquet extends AuditEntity {
     private Integer flowerCount;
 
     @OneToOne(mappedBy = "bouquet", cascade = CascadeType.ALL)
-    private CustomerOrder customerOrder;
+    private Order order;
 }

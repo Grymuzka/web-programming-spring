@@ -24,12 +24,4 @@ public class BouquetService {
     private double calculatePrice(Bouquet bouquet) {
         return bouquet.getFlowerCount() * BASE_PRICE_PER_FLOWER + BASE_PRICE_PER_ACCESSORY;
     }
-
-    public Bouquet createDefaultBouquet() {
-        Bouquet bouquet = new Bouquet();
-        bouquet.setFlowerType(FlowerType.ROSE);
-        bouquet.setFlowerCount(10);
-        bouquet.setAccessoryType(AccessoryType.RIBBON);
-        return bouquet;
-    }
 }

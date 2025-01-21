@@ -3,9 +3,8 @@ package com.example.webprogrammingspring.controller;
 import com.example.webprogrammingspring.exception.OrderNotFoundException;
 import com.example.webprogrammingspring.service.CustomerService;
 import com.example.webprogrammingspring.service.OrderService;
-import com.example.webprogrammingspring.entity.Bouquet;
 import com.example.webprogrammingspring.entity.Customer;
-import com.example.webprogrammingspring.entity.CustomerOrder;
+import com.example.webprogrammingspring.entity.Order;
 import com.example.webprogrammingspring.type.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,7 @@ public class OrderController {
 
     @GetMapping("/form")
     public String showOrderForm(@RequestParam Long orderId, Model model) {
-        CustomerOrder order = orderService.findOrderById(orderId);
+        Order order = orderService.findOrderById(orderId);
         model.addAttribute("order", order);
 
         if (!model.containsAttribute("customer")) {
@@ -45,7 +44,7 @@ public class OrderController {
         }
 
         // Znalezienie zamówienia
-        CustomerOrder order = orderService.findOrderById(orderId);
+        Order order = orderService.findOrderById(orderId);
         if (order == null) {
             throw new OrderNotFoundException(orderId);
         }
@@ -66,7 +65,7 @@ public class OrderController {
     }
 
     @GetMapping("/confirmation")
-    public String showConfirmationPage(@ModelAttribute("order") CustomerOrder order, Model model) {
+    public String showConfirmationPage(@ModelAttribute("order") Order order, Model model) {
         model.addAttribute("order", order);
         return "orderConfirmation";
     }

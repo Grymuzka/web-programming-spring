@@ -1,7 +1,7 @@
 package com.example.webprogrammingspring.controller;
 
 import com.example.webprogrammingspring.service.OrderService;
-import com.example.webprogrammingspring.entity.CustomerOrder;
+import com.example.webprogrammingspring.entity.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +19,9 @@ public class AdminController {
 
     @GetMapping("/panel")
     public String showAdminPanel(Model model) {
-        List<CustomerOrder> customerOrders = orderService.getAllOrders();
-        model.addAttribute("orders", customerOrders); // Nazwa atrybutu poprawiona na "orders"
-        return "adminPanel"; // Zwraca szablon adminPanel.html
+        List<Order> orders = orderService.getAllOrders();
+        model.addAttribute("orders", orders);
+        return "adminPanel";
     }
 }
 

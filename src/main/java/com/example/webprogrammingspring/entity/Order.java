@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class CustomerOrder extends AuditEntity {
+public class Order extends AuditEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bouquet_id")

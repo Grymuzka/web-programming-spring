@@ -2,7 +2,7 @@ package com.example.webprogrammingspring.service;
 
 import com.example.webprogrammingspring.exception.OrderNotFoundException;
 import com.example.webprogrammingspring.entity.Bouquet;
-import com.example.webprogrammingspring.entity.CustomerOrder;
+import com.example.webprogrammingspring.entity.Order;
 import com.example.webprogrammingspring.repository.OrderRepository;
 import com.example.webprogrammingspring.type.OrderStatus;
 import lombok.RequiredArgsConstructor;
@@ -17,29 +17,29 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     public void createOrder() {
-        CustomerOrder customerOrder = new CustomerOrder();
+        Order order = new Order();
 //        order.setCustomer(customer);
 //        customerOrder.setBouquet(bouquet);
-        customerOrder.setStatus(OrderStatus.NEW);
-        orderRepository.save(customerOrder);
+        order.setStatus(OrderStatus.NEW);
+        orderRepository.save(order);
     }
 
-    public List<CustomerOrder> getAllOrders() {
+    public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
-    public CustomerOrder createDraftOrder(Bouquet bouquet) {
-        CustomerOrder order = new CustomerOrder();
+    public Order createDraftOrder(Bouquet bouquet) {
+        Order order = new Order();
         order.setStatus(OrderStatus.DRAFT);
         order.setBouquet(bouquet);
         return orderRepository.save(order);
     }
 
-    public CustomerOrder findOrderById(Long orderId) {
+    public Order findOrderById(Long orderId) {
         return orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException(orderId));
     }
 
-    public void updateOrder(CustomerOrder order) {
+    public void updateOrder(Order order) {
         orderRepository.save(order);
     }
 }
