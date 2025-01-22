@@ -61,7 +61,7 @@
     <!-- Rodzaj kwiatów -->
     <label for="flowerTypeSelect">Rodzaj kwiatów:</label>
     <select id="flowerTypeSelect" th:field="*{flowerType}">
-        <option th:each="type : ${flowerTypes}" th:value="${type}" th:text="${type}"></option>
+        <option th:each="type : ${flowerTypes}" th:value="${type}" th:text="${type.getName()}"></option>
     </select>
 
     <!-- Liczba kwiatów -->
@@ -71,7 +71,7 @@
     <!-- Dodatki -->
     <label for="accessoryTypeSelect">Dodatki:</label>
     <select id="accessoryTypeSelect" th:field="*{accessoryType}">
-        <option th:each="type : ${accessoryTypes}" th:value="${type}" th:text="${type}"></option>
+        <option th:each="type : ${accessoryTypes}" th:value="${type}" th:text="${type.getName()}"></option>
     </select>
 
     <!-- Przyciski -->

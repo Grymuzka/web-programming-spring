@@ -95,9 +95,9 @@
 
 <div class="order-summary">
     <h2>Szczegóły zamówienia</h2>
-    <p><strong>Rodzaj kwiatów:</strong> <span th:text="${order.bouquet.flowerType}"></span></p>
+    <p><strong>Rodzaj kwiatów:</strong> <span th:text="${order.bouquet.flowerType.getName()}"></span></p>
     <p><strong>Liczba kwiatów:</strong> <span th:text="${order.bouquet.flowerCount}"></span></p>
-    <p><strong>Dodatki:</strong> <span th:text="${order.bouquet.accessoryType}"></span></p>
+    <p><strong>Dodatki:</strong> <span th:text="${order.bouquet.accessoryType.getName()}"></span></p>
     <p><strong>Cena:</strong> <span th:text="${order.bouquet.price}">0.00</span> PLN</p>
 </div>
 

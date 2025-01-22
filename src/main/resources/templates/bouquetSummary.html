@@ -79,9 +79,9 @@
 
 <div class="order-summary">
     <h3>Szczegóły bukietu</h3>
-    <p><strong>Rodzaj kwiatów:</strong> <span th:text="${bouquet.flowerType}"></span></p>
+    <p><strong>Rodzaj kwiatów:</strong> <span th:text="${bouquet.flowerType.getName()}"></span></p>
     <p><strong>Liczba kwiatów:</strong> <span th:text="${bouquet.flowerCount}"></span></p>
-    <p><strong>Dodatki:</strong> <span th:text="${bouquet.accessoryType}"></span></p>
+    <p><strong>Dodatki:</strong> <span th:text="${bouquet.accessoryType.getName()}"></span></p>
     <p class="price">Cena: <span th:text="${bouquet.price}">0.00</span> PLN</p>
 </div>
 
