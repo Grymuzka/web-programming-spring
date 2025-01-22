@@ -1,19 +1,17 @@
 package com.example.webprogrammingspring.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.Order;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 public class Customer extends AuditEntity {
 
@@ -24,4 +22,9 @@ public class Customer extends AuditEntity {
     private String email;
 
     private String phone;
+
+    @OneToMany(mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private Set<Order> orders = new HashSet<>();
 }

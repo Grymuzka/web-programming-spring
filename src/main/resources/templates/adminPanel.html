@@ -74,19 +74,12 @@
     </thead>
     <tbody>
     <tr th:each="order : ${orders}">
-        <!-- ID zamówienia -->
         <td th:text="${order.id}"></td>
-
-        <!-- Imię i nazwisko klienta -->
         <td th:text="${order.customer != null ? order.customer.firstName + ' ' + order.customer.lastName : 'Nie przypisano'}"
             class="no-data"></td>
-
-        <!-- Rodzaj bukietu -->
-        <td th:text="${order.bouquet != null ? order.bouquet.flowerType : 'Brak danych'}"
+        <td th:text="${order.bouquet != null ? order.bouquet.flowerType.getName() : 'Brak danych'}"
             class="no-data"></td>
-
-        <!-- Status zamówienia -->
-        <td th:text="${order.status}"></td>
+        <td th:text="${order.status.getName()}"></td>
     </tr>
     </tbody>
 </table>

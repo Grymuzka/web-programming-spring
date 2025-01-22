@@ -3,6 +3,7 @@ package com.example.webprogrammingspring.entity;
 import com.example.webprogrammingspring.type.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import lombok.Setter;
 @Table(name = "customer_order")
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Order extends AuditEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -20,7 +21,7 @@ public class Order extends AuditEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 }
