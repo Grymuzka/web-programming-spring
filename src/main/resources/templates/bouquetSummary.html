@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Podsumowanie zamówienia</title>
+    <title>Podsumowanie bukietu</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,13 +13,13 @@
             color: #333;
         }
 
-        h1 {
+        h2 {
             font-size: 2.5em;
             color: #19531d;
             margin-bottom: 20px;
         }
 
-        h2 {
+        h3 {
             font-size: 1.8em;
             color: #333;
             margin-top: 30px;
@@ -75,10 +75,10 @@
     </style>
 </head>
 <body>
-<h1>Podsumowanie zamówienia nr <span th:text="${orderId}"></span></h1>
+<h2>Podsumowanie bukietu dla zamówienia nr <span th:text="${orderId}"></span></h2>
 
 <div class="order-summary">
-    <h2>Szczegóły bukietu</h2>
+    <h3>Szczegóły bukietu</h3>
     <p><strong>Rodzaj kwiatów:</strong> <span th:text="${bouquet.flowerType}"></span></p>
     <p><strong>Liczba kwiatów:</strong> <span th:text="${bouquet.flowerCount}"></span></p>
     <p><strong>Dodatki:</strong> <span th:text="${bouquet.accessoryType}"></span></p>

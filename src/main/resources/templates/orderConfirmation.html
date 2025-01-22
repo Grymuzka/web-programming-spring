@@ -2,19 +2,86 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Potwierdzenie zamówienia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            color: #4CAF50;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        strong {
+            color: #4CAF50;
+        }
+
+        .confirmation {
+            display: inline-block;
+            text-align: left;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .order-details {
+            margin-top: 20px;
+        }
+
+        .price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .price span {
+            color: #4CAF50;
+        }
+    </style>
 </head>
 <body>
 <h1>Potwierdzenie zamówienia</h1>
 
-<div>
+<div class="confirmation">
     <h2>Dziękujemy za zamówienie!</h2>
     <p><strong>Numer zamówienia:</strong> <span th:text="${order.id}"></span></p>
     <p><strong>Status:</strong> <span th:text="${order.status}"></span></p>
-    <h3>Szczegóły bukietu:</h3>
-    <p><strong>Rodzaj kwiatów:</strong> <span th:text="${order.bouquet.flowerType}"></span></p>
-    <p><strong>Liczba kwiatów:</strong> <span th:text="${order.bouquet.flowerCount}"></span></p>
-    <p><strong>Dodatki:</strong> <span th:text="${order.bouquet.accessoryType}"></span></p>
-    <p><strong>Cena:</strong> <span th:text="${order.bouquet.price}"></span> PLN</p>
+
+    <div class="order-details">
+        <h3>Szczegóły bukietu:</h3>
+        <p><strong>Rodzaj kwiatów:</strong> <span th:text="${order.bouquet.flowerType}"></span></p>
+        <p><strong>Liczba kwiatów:</strong> <span th:text="${order.bouquet.flowerCount}"></span></p>
+        <p><strong>Dodatki:</strong> <span th:text="${order.bouquet.accessoryType}"></span></p>
+        <p class="price">Cena: <span th:text="${order.bouquet.price}"></span> PLN</p>
+    </div>
 </div>
 </body>
 </html>
