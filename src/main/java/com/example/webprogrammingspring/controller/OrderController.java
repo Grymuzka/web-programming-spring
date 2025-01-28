@@ -1,12 +1,8 @@
 package com.example.webprogrammingspring.controller;
 
-import com.example.webprogrammingspring.entity.Bouquet;
-import com.example.webprogrammingspring.exception.OrderNotFoundException;
-import com.example.webprogrammingspring.service.CustomerService;
-import com.example.webprogrammingspring.service.OrderService;
 import com.example.webprogrammingspring.entity.Customer;
 import com.example.webprogrammingspring.entity.Order;
-import com.example.webprogrammingspring.type.OrderStatus;
+import com.example.webprogrammingspring.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class OrderController {
 
     private final OrderService orderService;
-    private final CustomerService customerService;
 
     @GetMapping("/form")
     public String showOrderForm(@RequestParam Long orderId, Model model) {
@@ -45,22 +40,7 @@ public class OrderController {
             return "redirect:/order/form?orderId=" + orderId;
         }
 
-        // Znalezienie zamówienia
-        Order order = orderService.findOrderById(orderId);
-        if (order == null) {
-            throw new OrderNotFoundException(orderId);
-        }
-
-        // Znalezienie lub utworzenie klienta
-        Customer existingCustomer = customerService.findCustomerByEmail(customer.getEmail());
-        if (existingCustomer == null) {
-            existingCustomer = customerService.createCustomer(customer);
-        }
-
-        // Powiązanie zamówienia z klientem i zmiana statusu
-        order.setCustomer(existingCustomer);
-        order.setStatus(OrderStatus.NEW);
-        orderService.updateOrder(order);
+        Order order = orderService.processDraftOrder(orderId, customer);
 
         redirectAttributes.addFlashAttribute("order", order);
         return "redirect:/order/confirmation";
@@ -76,14 +56,9 @@ public class OrderController {
             return "redirect:/error";
         }
 
-        // Obliczenie całkowitej wartości zamówienia
-        double totalPrice = order.getBouquets().stream()
-                .mapToDouble(Bouquet::getPrice)
-                .sum();
-
         model.addAttribute("order", order);
         model.addAttribute("bouquets", order.getBouquets());
-        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("totalPrice", order.getTotalPrice());
 
         return "orderConfirmation";
     }

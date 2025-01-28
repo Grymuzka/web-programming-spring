@@ -1,9 +1,7 @@
 package com.example.webprogrammingspring.service;
 
 import com.example.webprogrammingspring.entity.Bouquet;
-import com.example.webprogrammingspring.repository.BouquetRepository;
-import com.example.webprogrammingspring.type.AccessoryType;
-import com.example.webprogrammingspring.type.FlowerType;
+import com.example.webprogrammingspring.entity.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +9,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BouquetService {
 
-    private final BouquetRepository bouquetRepository;
-
     private final static double BASE_PRICE_PER_FLOWER = 5.0;
     private final static double BASE_PRICE_PER_ACCESSORY = 5.0;
 
-    public Bouquet saveBouquet(Bouquet bouquet) {
+    public void setBouquetDetails(Bouquet bouquet, Order order) {
+        bouquet.setOrder(order);
         bouquet.setPrice(calculatePrice(bouquet));
-        return bouquetRepository.save(bouquet);
     }
 
     private double calculatePrice(Bouquet bouquet) {

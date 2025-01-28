@@ -1,6 +1,5 @@
 package com.example.webprogrammingspring.controller;
 
-import com.example.webprogrammingspring.entity.Bouquet;
 import com.example.webprogrammingspring.entity.Order;
 import com.example.webprogrammingspring.service.BouquetService;
 import com.example.webprogrammingspring.service.OrderService;
@@ -17,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/bouquet")
@@ -46,31 +42,17 @@ public class BouquetController {
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
 
-        // Walidacja zamówienia
         if (bindingResult.hasErrors()) {
             return "customizeBouquet";
         }
 
-        // Debugowanie
-        System.out.println("Received order with bouquets: " + order.getBouquets());
-        System.out.println("Number of bouquets: " + order.getBouquets().size());
-
-        // Ustawienie relacji rodzic-dziecko
-        for (Bouquet bouquet : order.getBouquets()) {
-            bouquet.setOrder(order);
-            bouquet.setPrice(90d);
-        }
-
-        // Zapis zamówienia z bukietami
-        Order savedOrder = orderService.createDraftOrder(order);
+        Order savedOrder = orderService.saveOrder(order);
 
         redirectAttributes.addFlashAttribute("order", savedOrder);
         redirectAttributes.addFlashAttribute("bouquets", savedOrder.getBouquets());
 
         return "redirect:/bouquet/summary";
     }
-
-
 
     @GetMapping("/summary")
     public String showBouquetSummary(@ModelAttribute("order") Order order, Model model) {

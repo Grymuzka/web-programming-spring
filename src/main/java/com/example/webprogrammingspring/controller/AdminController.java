@@ -1,7 +1,7 @@
 package com.example.webprogrammingspring.controller;
 
-import com.example.webprogrammingspring.service.OrderService;
 import com.example.webprogrammingspring.entity.Order;
+import com.example.webprogrammingspring.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
