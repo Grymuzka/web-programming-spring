@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -16,22 +17,12 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    public void createOrder() {
-        Order order = new Order();
-//        order.setCustomer(customer);
-//        customerOrder.setBouquet(bouquet);
-        order.setStatus(OrderStatus.NEW);
-        orderRepository.save(order);
-    }
-
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
-    public Order createDraftOrder(Bouquet bouquet) {
-        Order order = new Order();
+    public Order createDraftOrder(Order order) {
         order.setStatus(OrderStatus.DRAFT);
-        order.setBouquet(bouquet);
         return orderRepository.save(order);
     }
 

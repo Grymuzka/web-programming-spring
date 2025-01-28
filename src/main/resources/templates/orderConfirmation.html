@@ -69,20 +69,76 @@
     </style>
 </head>
 <body>
-<h1>Potwierdzenie zamówienia</h1>
+<div class="confirmation-container">
+    <h1>Potwierdzenie zamówienia</h1>
 
-<div class="confirmation">
-    <h2>Dziękujemy za zamówienie!</h2>
-    <p><strong>Numer zamówienia:</strong> <span th:text="${order.id}"></span></p>
-    <p><strong>Status:</strong> <span th:text="${order.status.getName}"></span></p>
+    <div class="confirmation">
+        <h2>Dziękujemy za zamówienie!</h2>
 
-    <div class="order-details">
-        <h3>Szczegóły bukietu:</h3>
-        <p><strong>Rodzaj kwiatów:</strong> <span th:text="${order.bouquet.flowerType.getName()}"></span></p>
-        <p><strong>Liczba kwiatów:</strong> <span th:text="${order.bouquet.flowerCount}"></span></p>
-        <p><strong>Dodatki:</strong> <span th:text="${order.bouquet.accessoryType.getName()}"></span></p>
-        <p class="price">Cena: <span th:text="${order.bouquet.price}"></span> PLN</p>
+        <div class="order-summary">
+            <p><strong>Numer zamówienia:</strong> <span th:text="${order.id}"></span></p>
+            <p><strong>Status:</strong> <span th:text="${order.status.getName()}"></span></p>
+
+            <!-- Dane klienta -->
+            <div class="customer-details" th:if="${order.customer}">
+                <h3>Dane klienta</h3>
+                <p><strong>Imię:</strong> <span th:text="${order.customer.firstName}"></span></p>
+                <p><strong>Nazwisko:</strong> <span th:text="${order.customer.lastName}"></span></p>
+                <p><strong>Email:</strong> <span th:text="${order.customer.email}"></span></p>
+            </div>
+        </div>
+
+        <div class="order-details">
+            <h3>Bukiety w zamówieniu</h3>
+
+            <div th:each="bouquet, iterStat : ${bouquets}" class="bouquet-summary">
+                <h4>Bukiet nr <span th:text="${iterStat.index + 1}"></span></h4>
+
+                <div class="bouquet-details">
+                    <p><strong>Rodzaj kwiatów:</strong>
+                        <span th:text="${bouquet.flowerType.getName()}"></span>
+                    </p>
+
+                    <p><strong>Liczba kwiatów:</strong>
+                        <span th:text="${bouquet.flowerCount}"></span>
+                    </p>
+
+                    <p><strong>Dodatki:</strong>
+                        <span th:text="${bouquet.accessoryType.getName()}"></span>
+                    </p>
+
+                    <p class="price">
+                        Cena bukietu:
+                        <span th:text="${#numbers.formatDecimal(bouquet.price, 0, 2)}"></span> PLN
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Podsumowanie zamówienia -->
+        <div class="total-summary">
+            <h3>Podsumowanie zamówienia</h3>
+            <p><strong>Liczba bukietów:</strong> <span th:text="${bouquets.size()}"></span></p>
+            <p><strong>Całkowita wartość:</strong>
+                <span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 2)}"></span> PLN
+            </p>
+        </div>
+
+        <!-- Dodatkowe informacje -->
+        <div class="additional-info">
+            <h3>Informacje dodatkowe</h3>
+            <p>Dziękujemy za złożenie zamówienia. Wkrótce skontaktujemy się w sprawie realizacji.</p>
+            <p>W razie pytań prosimy o kontakt pod numerem telefonu: +48 123 456 789</p>
+        </div>
+
+        <!-- Przyciski akcji -->
+        <div class="action-buttons">
+            <a th:href="@{/}" class="btn btn-secondary">
+                Powrót do strony głównej
+            </a>
+        </div>
     </div>
 </div>
 </body>
+
 </html>

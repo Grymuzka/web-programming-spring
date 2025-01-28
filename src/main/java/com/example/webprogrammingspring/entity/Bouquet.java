@@ -23,6 +23,7 @@ public class Bouquet extends AuditEntity {
 
     private Integer flowerCount;
 
-    @OneToOne(mappedBy = "bouquet", cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 }

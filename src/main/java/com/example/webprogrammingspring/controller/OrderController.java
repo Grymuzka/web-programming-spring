@@ -1,5 +1,6 @@
 package com.example.webprogrammingspring.controller;
 
+import com.example.webprogrammingspring.entity.Bouquet;
 import com.example.webprogrammingspring.exception.OrderNotFoundException;
 import com.example.webprogrammingspring.service.CustomerService;
 import com.example.webprogrammingspring.service.OrderService;
@@ -25,6 +26,7 @@ public class OrderController {
     public String showOrderForm(@RequestParam Long orderId, Model model) {
         Order order = orderService.findOrderById(orderId);
         model.addAttribute("order", order);
+        model.addAttribute("bouquetCount", order.getBouquets().size());
 
         if (!model.containsAttribute("customer")) {
             model.addAttribute("customer", new Customer());
@@ -65,8 +67,24 @@ public class OrderController {
     }
 
     @GetMapping("/confirmation")
-    public String showConfirmationPage(@ModelAttribute("order") Order order, Model model) {
+    public String showConfirmationPage(
+            @ModelAttribute("order") Order order,
+            Model model) {
+
+        // Dodatkowe zabezpieczenie
+        if (order == null) {
+            return "redirect:/error";
+        }
+
+        // Obliczenie całkowitej wartości zamówienia
+        double totalPrice = order.getBouquets().stream()
+                .mapToDouble(Bouquet::getPrice)
+                .sum();
+
         model.addAttribute("order", order);
+        model.addAttribute("bouquets", order.getBouquets());
+        model.addAttribute("totalPrice", totalPrice);
+
         return "orderConfirmation";
     }
 }

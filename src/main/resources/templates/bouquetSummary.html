@@ -75,16 +75,48 @@
     </style>
 </head>
 <body>
-<h2>Podsumowanie bukietu dla zamówienia nr <span th:text="${orderId}"></span></h2>
+<h2>Podsumowanie zamówienia nr <span th:text="${order.id}"></span></h2>
 
 <div class="order-summary">
-    <h3>Szczegóły bukietu</h3>
-    <p><strong>Rodzaj kwiatów:</strong> <span th:text="${bouquet.flowerType.getName()}"></span></p>
-    <p><strong>Liczba kwiatów:</strong> <span th:text="${bouquet.flowerCount}"></span></p>
-    <p><strong>Dodatki:</strong> <span th:text="${bouquet.accessoryType.getName()}"></span></p>
-    <p class="price">Cena: <span th:text="${bouquet.price}">0.00</span> PLN</p>
+    <h3>Bukiety w zamówieniu</h3>
+
+    <div th:each="bouquet, iterStat : ${order.bouquets}" class="bouquet-summary">
+        <h4>Bukiet nr <span th:text="${iterStat.index + 1}"></span></h4>
+
+        <div class="bouquet-details">
+            <p><strong>Rodzaj kwiatów:</strong>
+                <span th:text="${bouquet.flowerType.getName()}"></span>
+            </p>
+
+            <p><strong>Liczba kwiatów:</strong>
+                <span th:text="${bouquet.flowerCount}"></span>
+            </p>
+
+            <p><strong>Dodatki:</strong>
+                <span th:text="${bouquet.accessoryType.getName()}"></span>
+            </p>
+
+            <p class="price">
+                Cena bukietu:
+                <span th:text="${#numbers.formatDecimal(bouquet.price, 0, 2)}"></span> PLN
+            </p>
+        </div>
+    </div>
+
+    <div class="total-summary">
+        <h3>Podsumowanie zamówienia</h3>
+        <p><strong>Liczba bukietów:</strong> <span th:text="${order.bouquets.size()}"></span></p>
+<!--        <p><strong>Całkowita wartość:</strong>-->
+<!--            <span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 2)}"></span> PLN-->
+<!--        </p>-->
+    </div>
 </div>
 
-<a th:href="@{/order/form(orderId=${order.id})}">Przejdź do formularza zamówienia</a>
+<div class="actions">
+    <a th:href="@{/order/form(orderId=${order.id})}" class="btn btn-primary">
+        Przejdź do formularza zamówienia
+    </a>
+</div>
 </body>
+
 </html>

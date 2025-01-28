@@ -41,6 +41,21 @@
             font-size: 1.2em;
         }
 
+        .bouquet-details {
+            display: none;
+            background-color: #f9f9f9;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .order-row:hover {
+            cursor: pointer;
+        }
+
+        .bouquet-details.active {
+            display: table-row;
+        }
+
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
@@ -57,7 +72,6 @@
             font-style: italic;
             color: #888;
         }
-
     </style>
 </head>
 <body>
@@ -68,8 +82,9 @@
     <tr>
         <th>ID</th>
         <th>Klient</th>
-        <th>Bukiet</th>
+        <th>Liczba Bukietów</th>
         <th>Status</th>
+        <th>Akcje</th>
     </tr>
     </thead>
     <tbody>
@@ -77,12 +92,17 @@
         <td th:text="${order.id}"></td>
         <td th:text="${order.customer != null ? order.customer.firstName + ' ' + order.customer.lastName : 'Nie przypisano'}"
             class="no-data"></td>
-        <td th:text="${order.bouquet != null ? order.bouquet.flowerType.getName() : 'Brak danych'}"
-            class="no-data"></td>
+        <td th:text="${order.bouquets.size()}"></td>
         <td th:text="${order.status.getName()}"></td>
+        <td>
+            <a th:href="@{/admin/panel/{orderId}(orderId=${order.id})}"
+               class="btn btn-primary">
+                Zobacz szczegóły
+            </a>
+        </td>
     </tr>
     </tbody>
 </table>
-
 </body>
+
 </html>

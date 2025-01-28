@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Szczegóły zamówienia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-image: url('https://images.unsplash.com/photo-1567696153798-9111f9cd3d0d?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #19531d;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #1d6525;
+            margin-bottom: 15px;
+        }
+
+        .order-details-container {
+            background: #fff;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .order-info, .customer-info, .bouquets-list, .order-summary {
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        .bouquet-details {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .bouquet-details h3 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #19531d;
+        }
+
+        .order-summary p {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .no-data {
+            font-style: italic;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+<div class="order-details-container">
+    <h1>Szczegóły zamówienia nr [[${order.id}]]</h1>
+
+    <div class="order-info">
+        <h2>Informacje o zamówieniu</h2>
+        <p><strong>Status:</strong> [[${order.status.getName()}]]</p>
+        <p><strong>Wartość zamówienia:</strong> [[${order.totalPrice}]]</p>
+        <p><strong>Data utworzenia:</strong> [[${#temporals.format(order.createdAt, 'dd-MM-yyyy HH:mm')}]]</p>
+    </div>
+
+    <div class="customer-info" th:if="${order.customer}">
+        <h2>Dane klienta</h2>
+        <p><strong>Imię:</strong> [[${order.customer.firstName}]]</p>
+        <p><strong>Nazwisko:</strong> [[${order.customer.lastName}]]</p>
+        <p><strong>Email:</strong> [[${order.customer.email}]]</p>
+    </div>
+
+    <div class="bouquets-list">
+        <h2>Bukiety w zamówieniu</h2>
+        <div th:each="bouquet, iterStat : ${bouquets}" class="bouquet-details">
+            <h3>Bukiet nr [[${iterStat.index + 1}]]</h3>
+            <p><strong>Rodzaj kwiatów:</strong> [[${bouquet.flowerType.getName()}]]</p>
+            <p><strong>Liczba kwiatów:</strong> [[${bouquet.flowerCount}]]</p>
+            <p><strong>Dodatki:</strong> [[${bouquet.accessoryType.getName()}]]</p>
+            <p><strong>Cena:</strong> [[${#numbers.formatDecimal(bouquet.price, 0, 2)}]] PLN</p>
+        </div>
+    </div>
+
+    <div class="order-summary">
+        <h2>Podsumowanie</h2>
+        <p><strong>Liczba bukietów:</strong> [[${bouquets.size()}]]</p>
+    </div>
+</div>
+</body>
+</html>
