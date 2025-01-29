@@ -10,6 +10,8 @@
     <tr>
         <th>ID</th>
         <th>Imię i nazwisko</th>
+        <th>Liczba książek</th>
+        <th>Kategoria</th>
         <th>Akcje</th>
     </tr>
     </thead>
@@ -17,6 +19,14 @@
     <tr th:each="author : ${authors}">
         <td th:text="${author.id}"></td>
         <td th:text="${author.name}"></td>
+        <td>
+            <th:block th:if="${author.books.size() == 0}">brak</th:block>
+            <th:block th:unless="${author.books.size() == 0}" th:text="${author.books.size()}"></th:block>
+        </td>
+        <td>
+            <span th:if="${#temporals.year(author.birthDate) < 2000}">old generation</span>
+            <span th:if="${#temporals.year(author.birthDate) >= 2000}">young generation</span>
+        </td>
         <td>
             <a th:href="@{'/authors/delete/' + ${author.id}}">Usuń</a>
         </td>

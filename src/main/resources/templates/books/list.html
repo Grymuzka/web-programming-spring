@@ -2,6 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Lista Książek</title>
+    <style>
+        .old-publication {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <h1>Lista Książek</h1>
@@ -11,6 +16,8 @@
         <th>ID</th>
         <th>Tytuł</th>
         <th>Imię i nazwisko autora</th>
+        <th>Rok publikacji</th>
+        <th>Akcje</th>
     </tr>
     </thead>
     <tbody>
@@ -18,6 +25,10 @@
         <td th:text="${book.id}"></td>
         <td th:text="${book.title}"></td>
         <td th:text="${book.author.name}"></td>
+        <td th:text="${book.publicationYear}"
+            th:class="${book.publicationYear < 2010 ? 'old-publication' : ''}">
+        </td>
+
         <td>
             <a th:href="@{'/books/delete/' + ${book.id}}">Usuń</a>
         </td>

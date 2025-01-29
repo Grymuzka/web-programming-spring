@@ -9,6 +9,9 @@
     <label for="title">Tytuł:</label>
     <input type="text" id="title" th:field="*{title}" placeholder="Wprowadź
 tytuł" required/>
+    <br/><label for="publishYear">Rok publikacji:</label>
+    <input type="number" id="publishYear" th:field="*{publishYear}" placeholder="Wprowadź
+rok wydania" required/>
     <br/>
     <label for="author">Autor:</label>
     <select id="author" th:field="*{author.id}">
