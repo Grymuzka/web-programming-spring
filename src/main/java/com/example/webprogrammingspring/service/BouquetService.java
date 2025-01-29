@@ -9,15 +9,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BouquetService {
 
-    private final static double BASE_PRICE_PER_FLOWER = 5.0;
-    private final static double BASE_PRICE_PER_ACCESSORY = 5.0;
-
     public void setBouquetDetails(Bouquet bouquet, Order order) {
         bouquet.setOrder(order);
         bouquet.setPrice(calculatePrice(bouquet));
     }
 
     private double calculatePrice(Bouquet bouquet) {
-        return bouquet.getFlowerCount() * BASE_PRICE_PER_FLOWER + BASE_PRICE_PER_ACCESSORY;
+        return (bouquet.getFlowerCount() * bouquet.getFlowerType().getPrice()) + bouquet.getAccessoryType().getPrice();
     }
 }

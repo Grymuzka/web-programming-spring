@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Podsumowanie bukietu</title>
+    <title>Szczegóły zamówienia</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,37 +13,59 @@
             color: #333;
         }
 
-        h2 {
+        h1 {
             font-size: 2.5em;
             color: #19531d;
             margin-bottom: 20px;
         }
 
-        h3 {
+        h2 {
             font-size: 1.8em;
-            color: #333;
-            margin-top: 30px;
+            color: #1d6525;
             margin-bottom: 15px;
         }
 
+        .order-details-container {
+            background: #fff;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .bouquets-list, .order-summary {
+            margin-bottom: 20px;
+        }
+
         p {
-            font-size: 1.2em;
-            margin: 10px 0;
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        .bouquet-details {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .bouquet-details h3 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
         }
 
         strong {
             color: #19531d;
         }
 
-        .order-summary {
-            display: inline-block;
-            text-align: left;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 10px 30px;
-            max-width: 600px;
+        .order-summary p {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
         }
 
         a {
@@ -62,61 +84,33 @@
         a:hover {
             background-color: #1d6525;
         }
-
-        .price {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .price span {
-            color: #1d6525;
-        }
     </style>
 </head>
 <body>
-<h2>Podsumowanie zamówienia nr <span th:text="${order.id}"></span></h2>
+<div class="order-details-container">
+    <h2>Szczegóły bukietów</h2>
 
-<div class="order-summary">
-    <h3>Bukiety w zamówieniu</h3>
-
-    <div th:each="bouquet, iterStat : ${order.bouquets}" class="bouquet-summary">
-        <h4>Bukiet nr <span th:text="${iterStat.index + 1}"></span></h4>
-
-        <div class="bouquet-details">
-            <p><strong>Rodzaj kwiatów:</strong>
-                <span th:text="${bouquet.flowerType.getName()}"></span>
-            </p>
-
-            <p><strong>Liczba kwiatów:</strong>
-                <span th:text="${bouquet.flowerCount}"></span>
-            </p>
-
-            <p><strong>Dodatki:</strong>
-                <span th:text="${bouquet.accessoryType.getName()}"></span>
-            </p>
-
-            <p class="price">
-                Cena bukietu:
-                <span th:text="${#numbers.formatDecimal(bouquet.price, 0, 2)}"></span> PLN
-            </p>
+    <div class="bouquets-list">
+        <div th:each="bouquet, iterStat : ${bouquets}" class="bouquet-details">
+            <h3>Bukiet nr [[${iterStat.index + 1}]]</h3>
+            <p><strong>Rodzaj kwiatów:</strong> [[${bouquet.flowerType.getName()}]]</p>
+            <p><strong>Liczba kwiatów:</strong> [[${bouquet.flowerCount}]]</p>
+            <p><strong>Dodatki:</strong> [[${bouquet.accessoryType.getName()}]]</p>
+            <p><strong>Cena:</strong> [[${#numbers.formatDecimal(bouquet.price, 0, 2)}]] PLN</p>
         </div>
     </div>
 
-    <div class="total-summary">
-        <h3>Podsumowanie zamówienia</h3>
-        <p><strong>Liczba bukietów:</strong> <span th:text="${order.bouquets.size()}"></span></p>
-<!--        <p><strong>Całkowita wartość:</strong>-->
-<!--            <span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 2)}"></span> PLN-->
-<!--        </p>-->
+    <div class="order-summary">
+        <h2>Podsumowanie</h2>
+        <p><strong>Liczba bukietów:</strong> [[${bouquets.size()}]]</p>
     </div>
-</div>
 
-<div class="actions">
-    <a th:href="@{/order/form(orderId=${order.id})}" class="btn btn-primary">
-        Przejdź do formularza zamówienia
-    </a>
+    <div class="actions">
+        <a th:href="@{/order/form(orderId=${order.id})}" class="btn btn-primary">
+            Przejdź do formularza zamówienia
+        </a>
+    </div>
+
 </div>
 </body>
-
 </html>

@@ -67,4 +67,22 @@ public class OrderService {
     public void updateOrder(Order order) {
         orderRepository.save(order);
     }
+
+    public Order changeOrderStatus(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException(orderId));
+
+        switch (order.getStatus()) {
+            case NEW:
+                order.setStatus(OrderStatus.CONFIRMED);
+                break;
+            case CONFIRMED:
+                order.setStatus(OrderStatus.READY);
+                break;
+            default:
+                throw new IllegalStateException("Cannot change status for this order");
+        }
+
+        return orderRepository.save(order);
+    }
 }
