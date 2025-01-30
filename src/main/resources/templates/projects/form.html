@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${project.id != null} ? 'Edycja Projektu' : 'Dodaj Projekt'"></title>
+</head>
+<body>
+
+<h1 th:text="${project.id != null} ? 'Edycja Projektu' : 'Dodaj Projekt'"></h1>
+
+<form action="#" th:action="@{/projects/save}" th:object="${project}" method="post">
+
+    <!-- Pole na nazwę projektu -->
+    <div>
+        <label for="name">Nazwa projektu:</label>
+        <input type="text" id="name" th:field="*{name}" required />
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </div>
+
+    <!-- Pole na datę rozpoczęcia -->
+    <div>
+        <label for="startDate">Data rozpoczęcia:</label>
+        <input type="date" id="startDate" th:field="*{startDate}" required />
+        <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
+    </div>
+
+    <!-- Pole na opis projektu -->
+    <div>
+        <label for="description">Opis:</label>
+        <textarea id="description" th:field="*{description}"></textarea>
+    </div>
+
+    <!-- Lista studentów do przypisania projektu -->
+    <div>
+        <label for="student">Student:</label>
+        <select id="student" th:field="*{student}">
+            <!-- Wyświetlanie studentów w rozwijanej liście -->
+            <option value="" disabled selected Wybierz studenta></option>
+            <!-- Iteracja po studentach -->
+            <option th:each="student : ${students}"
+                    th:value="${student.id}"
+                    th:text="${student.firstName + ' ' + student.lastName}"
+                    th:selected="${project.student != null && project.student.id == student.id}">
+            </option>
+        </select>
+    </div>
+
+    <!-- Przycisk do zapisania projektu -->
+    <button type="submit">Zapisz projekt</button>
+
+    <!-- Link do powrotu -->
+    <a href="/projects">Powrót do listy projektów</a>
+
+</form>
+
+</body>
+</html>

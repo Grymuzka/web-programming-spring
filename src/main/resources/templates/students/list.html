@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>Projekty</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student : ${students}">
+        <td th:text="${student.firstName}"></td>
+        <td th:text="${student.lastName}"></td>
+        <td>
+            <ul>
+                <li th:each="project : ${student.projects}">
+                    <span th:text="${project.name}"></span>
+                    <span th:text="${project.status}"
+                          th:class="${project.status == 'ZAKOŃCZONY' ? 'completed' :
+                                             project.status == 'W_TRAKCIE' ? 'in-progress' : 'planned'}">
+                            </span>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

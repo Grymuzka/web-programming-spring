@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista Projektów</title>
+</head>
+<body>
+<h1>Lista Projektów</h1>
+<a href="/projects/add">Dodaj Nowy Projekt</a>
+<table>
+    <thead>
+    <tr>
+        <th>Nazwa</th>
+        <th>Data Rozpoczęcia</th>
+        <th>Status</th>
+        <th>Opis</th>
+        <th>Student</th>
+        <th>Akcje</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="project : ${projects}">
+        <td th:text="${project.name}"></td>
+        <td th:text="${project.startDate}"></td>
+        <td th:text="${project.status}"></td>
+        <td th:text="${project.description}"></td>
+        <td th:text="${project.student.firstName + ' ' + project.student.lastName}"></td>
+        <td>
+            <a th:href="@{/projects/edit/{id}(id=${project.id})}">Edytuj</a>
+            <a th:href="@{/projects/delete/{id}(id=${project.id})}" onclick="return confirm('Czy na pewno chcesz usunąć ten projekt?');">Usuń</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
